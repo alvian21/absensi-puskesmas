@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/login', 'AuthController@index');
+Route::post('/login', 'AuthController@login')->name('login');
+
+
+Route::group(['middleware' => ['auth:web']], function () {
+    Route::resource('dashboard', 'DashboardController');
+
+    Route::post('logout', 'AuthController@logout')->name('logout');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
