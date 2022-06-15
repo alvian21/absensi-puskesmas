@@ -19,7 +19,7 @@ Route::post('/login', 'AuthController@login')->name('login');
 
 Route::group(['middleware' => ['auth:web']], function () {
     Route::resource('dashboard', 'DashboardController');
-
+    Route::resource('divisi', 'DivisiController');
     Route::post('logout', 'AuthController@logout')->name('logout');
 });
 

@@ -12,6 +12,10 @@
                 <i class="fas fa-columns"></i> <span>Dashboard</span>
             </a>
         </li>
-
+        <li @yield('divisi')>
+            <a class="nav-link" href="{{ route('divisi.index') }}">
+                <i class="fas fa-columns"></i> <span>Divisi</span>
+            </a>
+        </li>
     </ul>
 </aside>
