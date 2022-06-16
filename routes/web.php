@@ -17,6 +17,10 @@ Route::get('/login', 'AuthController@index');
 Route::post('/login', 'AuthController@login')->name('login');
 
 
+Route::get('/', function(){
+    return redirect('/login');
+});
+
 Route::group(['middleware' => ['auth:web,pegawai']], function () {
     Route::resource('dashboard', 'DashboardController');
     Route::post('logout', 'AuthController@logout')->name('logout');
