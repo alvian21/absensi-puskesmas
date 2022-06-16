@@ -23,12 +23,12 @@ Route::group(['middleware' => ['auth:web,pegawai']], function () {
 });
 
 Route::group(['middleware' => ['auth:web']], function () {
-
+    Route::resource('laporan', 'LaporanController');
     Route::resource('divisi', 'DivisiController');
     Route::resource('pegawai', 'PegawaiController');
 
 });
 Route::group(['middleware' => ['auth:pegawai']], function () {
     Route::resource('absensi', 'AbsensiController');
-   
+
 });

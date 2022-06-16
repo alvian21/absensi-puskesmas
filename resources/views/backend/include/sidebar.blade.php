@@ -23,6 +23,11 @@
                     <i class="fas fa-columns"></i> <span>Pegawai</span>
                 </a>
             </li>
+            <li @yield('laporan')>
+                <a class="nav-link" href="{{ route('laporan.index') }}">
+                    <i class="fas fa-columns"></i> <span>Laporan</span>
+                </a>
+            </li>
         @endif
         @if (auth()->guard('pegawai')->check())
             <li @yield('absensi')>
@@ -30,7 +35,6 @@
                     <i class="fas fa-columns"></i> <span>Absensi</span>
                 </a>
             </li>
-
         @endif
     </ul>
 </aside>

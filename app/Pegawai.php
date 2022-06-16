@@ -11,4 +11,9 @@ class Pegawai extends Authenticatable
     {
         return $this->belongsTo('App\Divisi');
     }
+
+    public function absensi()
+    {
+        return $this->hasMany('App\Absensi');
+    }
 }
