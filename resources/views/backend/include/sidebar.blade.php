@@ -12,10 +12,25 @@
                 <i class="fas fa-columns"></i> <span>Dashboard</span>
             </a>
         </li>
-        <li @yield('divisi')>
-            <a class="nav-link" href="{{ route('divisi.index') }}">
-                <i class="fas fa-columns"></i> <span>Divisi</span>
-            </a>
-        </li>
+        @if (auth()->guard('web')->check())
+            <li @yield('divisi')>
+                <a class="nav-link" href="{{ route('divisi.index') }}">
+                    <i class="fas fa-columns"></i> <span>Divisi</span>
+                </a>
+            </li>
+            <li @yield('pegawai')>
+                <a class="nav-link" href="{{ route('pegawai.index') }}">
+                    <i class="fas fa-columns"></i> <span>Pegawai</span>
+                </a>
+            </li>
+        @endif
+        @if (auth()->guard('pegawai')->check())
+            <li @yield('absensi')>
+                <a class="nav-link" href="{{ route('absensi.index') }}">
+                    <i class="fas fa-columns"></i> <span>Absensi</span>
+                </a>
+            </li>
+
+        @endif
     </ul>
 </aside>

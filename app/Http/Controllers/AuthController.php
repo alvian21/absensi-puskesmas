@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Pegawai;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,16 +13,13 @@ class AuthController extends Controller
 {
 
 
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
-
-
     public function index()
     {
 
         if (Auth::check()) {
+            return redirect()->route('dashboard.index');
+        }
+        if (Auth::guard('pegawai')->check()) {
             return redirect()->route('dashboard.index');
         }
         return view('auth.login');
@@ -37,18 +35,23 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors());
-        }else{
-            $user = User::where('username',$request->get('username'))->first();
-            if($user){
+        } else {
+            $user = User::where('username', $request->get('username'))->first();
+            $pegawai = Pegawai::where('username', $request->get('username'))->where('password', $request->get('password'))->first();
+            if ($user) {
                 // cek
-                if(Hash::check($request->get('password'), $user->password)){
+                if (Hash::check($request->get('password'), $user->password)) {
                     Auth::login($user);
 
                     return redirect()->route('dashboard.index');
-                }else{
+                } else {
                     return redirect()->back()->withErrors("username atau password salah");
                 }
-            }else{
+            } elseif ($pegawai) {
+                Auth::guard('pegawai')->login($pegawai);
+
+                return redirect()->route('dashboard.index');
+            } else {
                 return redirect()->back()->withErrors("username atau password salah");
             }
         }
@@ -58,10 +61,10 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
 
-        Auth::guard('web')->logout();
+        Auth::logout();
         session()->flush();
 
         return redirect('/login')
-        ->with('alert-info', 'Anda telah keluar, Sampai ketemu lagi!');
+            ->with('alert-info', 'Anda telah keluar, Sampai ketemu lagi!');
     }
 }

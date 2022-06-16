@@ -17,12 +17,18 @@ Route::get('/login', 'AuthController@index');
 Route::post('/login', 'AuthController@login')->name('login');
 
 
-Route::group(['middleware' => ['auth:web']], function () {
+Route::group(['middleware' => ['auth:web,pegawai']], function () {
     Route::resource('dashboard', 'DashboardController');
-    Route::resource('divisi', 'DivisiController');
     Route::post('logout', 'AuthController@logout')->name('logout');
 });
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => ['auth:web']], function () {
+
+    Route::resource('divisi', 'DivisiController');
+    Route::resource('pegawai', 'PegawaiController');
+
+});
+Route::group(['middleware' => ['auth:pegawai']], function () {
+    Route::resource('absensi', 'AbsensiController');
+   
 });

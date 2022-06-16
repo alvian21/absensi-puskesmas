@@ -40,7 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+        'pegawai' => [
+            'driver' => 'session',
+            'provider' => 'pegawai',
+        ],
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -70,7 +73,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-
+        'pegawai' => [
+            'driver' => 'eloquent',
+            'model' => App\Pegawai::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
