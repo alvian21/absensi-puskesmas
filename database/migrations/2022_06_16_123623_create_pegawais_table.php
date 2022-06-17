@@ -17,7 +17,7 @@ class CreatePegawaisTable extends Migration
             $table->id();
             $table->bigInteger('divisi_id')->unsigned()->index()->nullable();
             $table->foreign('divisi_id')->references('id')->on('divisis')->onDelete('cascade');
-            $table->string('username')->unique();
+            $table->string('username',6)->unique();
             $table->string('password');
             $table->string('nama_lengkap');
             $table->string('jenis_kelamin');
