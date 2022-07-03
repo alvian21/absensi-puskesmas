@@ -19,6 +19,7 @@ class CreateAbsensisTable extends Migration
             $table->foreign('pegawai_id')->references('id')->on('pegawais')->onDelete('cascade');
             $table->string('status');
             $table->dateTime('jam');
+            $table->longText('catatan')->nullable();
             $table->timestamps();
         });
     }

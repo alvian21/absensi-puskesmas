@@ -7,7 +7,12 @@
 <ul class="navbar-nav navbar-right mr-3">
     <li class="dropdown"><a href="#" data-toggle="dropdown"
             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-            <div class="d-sm-none d-lg-inline-block">Hi, admin</div>
+            @if (auth()->guard('pegawai')->check())
+                <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->guard('pegawai')->user()->nama_lengkap }}</div>
+            @else
+             <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->guard('pegawai')->user()->username }}</div>
+            @endif
+
         </a>
         <div class="dropdown-menu dropdown-menu-right">
             <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger"

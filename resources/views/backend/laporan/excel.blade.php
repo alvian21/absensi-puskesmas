@@ -13,6 +13,7 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $item->pegawai->nama_lengkap }}</td>
                 <td>{{ $item->status }}</td>
+                <td>{{ $item->catatan }}</td>
                 <td>{{ $item->jam }}</td>
             </tr>
         @endforeach

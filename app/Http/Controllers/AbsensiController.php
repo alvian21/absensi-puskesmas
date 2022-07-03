@@ -76,6 +76,28 @@ class AbsensiController extends Controller
                     } else {
                         return redirect()->back()->withErrors(['Maaf, absensi belum dibuka']);
                     }
+                } elseif ($status == 'Izin') {
+                    $absensi = new Absensi();
+                    $absensi->pegawai_id = $userid;
+                    $absensi->status = $status;
+                    $absensi->catatan = $request->get('catatan');
+                    $absensi->jam = date('Y-m-d H:i:s');
+                    $absensi->save();
+                } elseif ($status == 'Terlambat') {
+
+                    $terlambat_min = '07:16';
+                    $data = Carbon::createFromFormat('H:i', $terlambat_min)->diffInMinutes(Carbon::now());
+
+                    //cek
+                    if ($data > 0 && $data <= 15) {
+                        $absensi = new Absensi();
+                        $absensi->pegawai_id = $userid;
+                        $absensi->status = $status;
+                        $absensi->jam = date('Y-m-d H:i:s');
+                        $absensi->save();
+                    } else {
+                        return redirect()->back()->withErrors(['Maaf, absensi belum dibuka']);
+                    }
                 } else {
                     $pulang_min = '14:00';
                     $data = Carbon::createFromFormat('H:i', $pulang_min)->diffInMinutes(Carbon::now());
@@ -94,7 +116,7 @@ class AbsensiController extends Controller
             }
 
 
-            session()->flash('success', 'Data absensi berhasil disimpan');
+            session()->flash('success', 'Data ' . $status . ' berhasil disimpan');
 
             return redirect()->route('absensi.index');
         }
