@@ -10,7 +10,7 @@
             @if (auth()->guard('pegawai')->check())
                 <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->guard('pegawai')->user()->nama_lengkap }}</div>
             @else
-             <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->guard('pegawai')->user()->username }}</div>
+             <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->username }}</div>
             @endif
 
         </a>
